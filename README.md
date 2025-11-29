@@ -28,22 +28,4 @@ The pipeline automates the entire ML workflow:
 
 ---
 
-## 📦 Repository Structure
 
-mlops-kubeflow-assignment/
-│── data/
-│ ├── raw/
-│ │ └── california.csv.dvc
-│ └── processed/
-│── artifacts/
-│ ├── california.csv
-│ ├── model/
-│ └── metrics/
-│── src/
-│ └── pipeline_components.py
-│── run_pipeline.py
-│── requirements.txt
-│── Jenkinsfile
-│── README.md
-│── .dvc/
-│── .dvcignore
