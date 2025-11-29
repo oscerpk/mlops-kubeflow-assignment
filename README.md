@@ -1,27 +1,49 @@
-# 🚀 MLOps Project – End-to-End ML Pipeline with Kubeflow Pipelines, DVC & Minikube
-
-## 📌 Project Overview
-This project demonstrates a complete **end-to-end MLOps workflow** for training, tracking, versioning, and deploying a machine learning model using:
-
-- **Kubeflow Pipelines** (workflow orchestration)
-- **DVC** (data versioning + remote storage)
-- **Minikube** (local Kubernetes cluster)
-- **MLflow** (tracking)
-- **Docker** (containerization)
-- **GitHub** (code version control)
-
-The pipeline automates:
-1. Data ingestion  
-2. Data validation + preprocessing  
-3. Model training  
-4. Model evaluation  
-5. Model versioning + artifacts storage  
-6. DVC push/pull reproducibility  
-7. Pipeline execution on Kubernetes
-
-This ensures the complete ML lifecycle is **reproducible, automated, scalable, and production-ready**.
+# California Housing — MLOps Pipeline (MLflow + DVC + Jenkins)
+### Usman Shahid  
+### BS AI — Cloud MLOps (Assignment #4)
 
 ---
 
-## 🏗️ Project Structure
+## 📌 Project Overview
 
+This project implements a **complete MLOps pipeline** using:
+
+- **DVC** for data versioning  
+- **MLflow** for experiment tracking  
+- **A custom Python pipeline (`run_pipeline.py`)** instead of Kubeflow (as permitted due to Kubeflow instability)  
+- **Jenkins** for Continuous Integration (CI)  
+- **GitHub** for version control  
+- **Scikit-learn** for model training  
+
+The ML task is **California Housing Price Regression** using a simple machine learning model  
+(RandomForestRegressor).  
+The pipeline automates the entire ML workflow:
+
+1. Data extraction (via DVC)
+2. Data preprocessing
+3. Model training
+4. Model evaluation
+5. Experiment logging (MLflow)
+6. Automated CI pipeline (Jenkins)
+
+---
+
+## 📦 Repository Structure
+
+mlops-kubeflow-assignment/
+│── data/
+│ ├── raw/
+│ │ └── california.csv.dvc
+│ └── processed/
+│── artifacts/
+│ ├── california.csv
+│ ├── model/
+│ └── metrics/
+│── src/
+│ └── pipeline_components.py
+│── run_pipeline.py
+│── requirements.txt
+│── Jenkinsfile
+│── README.md
+│── .dvc/
+│── .dvcignore
