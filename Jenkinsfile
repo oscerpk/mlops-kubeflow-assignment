@@ -1,71 +1,42 @@
 pipeline {
-    agent any
 
-    environment {
-        PYTHON_VERSION = "3.10"
-    }
+    agent any
 
     stages {
 
         stage('Environment Setup') {
             steps {
-                echo "=== Stage 1: Checkout + Python Setup ==="
-
-                // Checkout code
-                checkout scm
-
-                // Create virtual environment
+                echo "Setting up environment..."
                 sh """
-                    python3 -m venv venv
-                    source venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                python3 -m venv jenv
+                . jenv/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
                 """
             }
         }
 
-        stage('Pipeline Compilation') {
+        stage('Pipeline Validation') {
             steps {
-                echo "=== Stage 2: Compile Kubeflow Pipeline ==="
-
+                echo "Running MLflow pipeline script..."
                 sh """
-                    source venv/bin/activate
-                    python run_pipeline.py
-
-                """
-
-                // Fail if pipeline.yaml not generated
-                sh """
-                    if [ ! -f pipeline.yaml ]; then
-                        echo "pipeline.yaml NOT FOUND!"
-                        exit 1
-                    fi
+                . jenv/bin/activate
+                python run_pipeline.py
                 """
             }
         }
 
-        stage('Run ML Pipeline') {
-            steps {
-                echo "=== Stage 3: Execute MLflow Pipeline ==="
-
-                sh """
-                    source venv/bin/activate
-                    python run_pipeline.py
-                """
-            }
-        }
     }
 
     post {
         always {
-            echo "Cleaning workspace..."
-            deleteDir()
+            echo "Pipeline Finished!"
         }
         success {
-            echo "Pipeline SUCCESS ✓"
+            echo "SUCCESS!"
         }
         failure {
-            echo "Pipeline FAILED ✗"
+            echo "FAILED!"
         }
     }
 }
