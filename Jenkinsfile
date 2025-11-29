@@ -30,7 +30,8 @@ pipeline {
 
                 sh """
                     source venv/bin/activate
-                    python pipeline.py
+                    python run_pipeline.py
+
                 """
 
                 // Fail if pipeline.yaml not generated
